@@ -36,7 +36,13 @@ Running log of decisions, blockers, and anything that didn't go as planned while
 - Random Failures (18 rows total, all with `Target == 0`) never appear in any test split's
   true-failure set, so no model's performance on that failure mode could be measured at
   all — noted as a limitation rather than silently omitted.
-- No blockers encountered so far. All planned components (EDA, preprocessing, 4 trained
-  models, evaluation, FastAPI serving, tests, notebook) built successfully. Docs
-  (README.md, MODEL_CARD.md) written next, then `gh repo create` + push since
-  `gh auth status` confirms an authenticated session.
+- No blockers encountered. All planned components (EDA, preprocessing, 4 trained models,
+  evaluation, FastAPI serving, tests, notebook, docs) built successfully, with 7 incremental
+  commits (scaffold -> EDA -> preprocessing/models -> serving -> tests -> notebook -> docs).
+- `gh repo create` had a transient GraphQL error on the first attempt but the repo was
+  actually created server-side despite the error message; the retry correctly reported
+  "Name already exists". The local `--remote=origin` step never ran because the first call
+  errored before reaching it, so `git remote -v` was empty afterward -- fixed by manually
+  running `git remote add origin https://github.com/WailMaqbali/predictive-maintenance.git`
+  and `git push -u origin master`, which succeeded. Repo is public at
+  https://github.com/WailMaqbali/predictive-maintenance.
